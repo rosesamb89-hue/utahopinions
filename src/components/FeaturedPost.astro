@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { AUTHOR } from '../consts';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, category, heroImage } = post.data;
+const href = `/blog/${post.id}/`;
+---
+
+<article class="featured">
+	{heroImage && (
+		<a href={href} class="hero">
+			<Image src={heroImage} alt="" width={1200} height={600} loading="eager" />
+		</a>
+	)}
+	<div class="content">
+		<a href={`/categories/${category.toLowerCase()}/`} class="category ui-text">{category}</a>
+		<h2 class="title">
+			<a href={href}>{title}</a>
+		</h2>
+		<p class="excerpt">{description}</p>
+		<p class="meta ui-text">
+			<span class="byline">{AUTHOR}</span>
+			<span class="dot">·</span>
+			<FormattedDate date={pubDate} />
+		</p>
+	</div>
+</article>
+
+<style>
+	.featured {
+		padding: var(--space-lg) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.hero {
+		display: block;
+		margin-bottom: var(--space-md);
+		overflow: hidden;
+		border-radius: 4px;
+	}
+	.hero img {
+		width: 100%;
+		height: auto;
+		display: block;
+		transition: transform 0.4s ease;
+	}
+	.hero:hover img {
+		transform: scale(1.02);
+	}
+	.content {
+		max-width: 760px;
+	}
+	.category {
+		display: inline-block;
+		font-size: 0.8125rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-accent);
+		text-decoration: none;
+		margin-bottom: 0.75rem;
+		font-weight: 600;
+	}
+	.category:hover {
+		color: var(--color-accent-hover);
+		text-decoration: underline;
+	}
+	.title {
+		font-size: 2.5rem;
+		line-height: 1.15;
+		margin: 0 0 1rem 0;
+		letter-spacing: -0.02em;
+	}
+	.title a {
+		text-decoration: none;
+		color: var(--color-text);
+	}
+	.title a:hover {
+		color: var(--color-accent);
+	}
+	.excerpt {
+		font-size: 1.125rem;
+		color: var(--color-text-muted);
+		margin: 0 0 1rem 0;
+		line-height: 1.55;
+	}
+	.meta {
+		font-size: 0.875rem;
+		color: var(--color-text-faint);
+		margin: 0;
+	}
+	.byline {
+		color: var(--color-text-muted);
+		font-weight: 500;
+	}
+	.dot {
+		margin: 0 0.5rem;
+	}
+	@media (max-width: 720px) {
+		.title {
+			font-size: 1.75rem;
+		}
+		.excerpt {
+			font-size: 1rem;
+		}
+	}
+</style>

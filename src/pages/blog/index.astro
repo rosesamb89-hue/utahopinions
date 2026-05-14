@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title="All Posts" description="Every essay, in reverse chronological order.">
+	<div class="container archive">
+		<h1 class="page-title">All Posts</h1>
+		<div class="post-list">
+			{posts.map((post) => <PostCard post={post} />)}
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.archive {
+		padding: var(--space-lg) var(--space-md);
+		max-width: 760px;
+	}
+	.page-title {
+		font-size: 2rem;
+		margin: 0 0 var(--space-lg) 0;
+	}
+</style>

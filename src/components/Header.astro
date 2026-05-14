@@ -1,0 +1,95 @@
+---
+import { SITE_TITLE, SITE_TAGLINE, CATEGORIES } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header class="site-header">
+	<div class="container header-inner">
+		<div class="brand">
+			<a href="/" class="brand-link">
+				<span class="brand-title">{SITE_TITLE}</span>
+			</a>
+			<p class="brand-tagline">{SITE_TAGLINE}</p>
+		</div>
+		<nav class="site-nav ui-text" aria-label="Primary">
+			<HeaderLink href="/">Home</HeaderLink>
+			{CATEGORIES.map((cat) => (
+				<HeaderLink href={`/categories/${cat.toLowerCase()}/`}>{cat}</HeaderLink>
+			))}
+			<HeaderLink href="/about/">About</HeaderLink>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		background: var(--color-bg);
+		border-bottom: 1px solid var(--color-border);
+		padding: var(--space-lg) 0 0 0;
+	}
+
+	.header-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.brand {
+		text-align: center;
+	}
+
+	.brand-link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.brand-link:hover {
+		color: inherit;
+	}
+
+	.brand-title {
+		font-family: var(--font-serif-stack);
+		font-size: 2.25rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--color-text);
+		display: inline-block;
+	}
+
+	.brand-tagline {
+		font-family: var(--font-serif-stack);
+		font-style: italic;
+		font-size: 1rem;
+		color: var(--color-text-muted);
+		margin: var(--space-xs) 0 0 0;
+		max-width: 500px;
+	}
+
+	.site-nav {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-md);
+		padding: var(--space-md) 0;
+		border-top: 1px solid var(--color-border);
+		width: 100%;
+		max-width: var(--content-width);
+		font-size: 0.875rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	@media (max-width: 720px) {
+		.brand-title {
+			font-size: 1.75rem;
+		}
+		.brand-tagline {
+			font-size: 0.9375rem;
+		}
+		.site-nav {
+			gap: var(--space-sm);
+			font-size: 0.8125rem;
+		}
+	}
+</style>

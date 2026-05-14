@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+	variant?: 'default' | 'compact';
+}
+
+const { post, variant = 'default' } = Astro.props;
+const { title, description, pubDate, category } = post.data;
+const href = `/blog/${post.id}/`;
+---
+
+<article class:list={['post-card', `variant-${variant}`]}>
+	<a href={`/categories/${category.toLowerCase()}/`} class="category ui-text">{category}</a>
+	<h3 class="title">
+		<a href={href}>{title}</a>
+	</h3>
+	{variant === 'default' && <p class="excerpt">{description}</p>}
+	<p class="meta ui-text">
+		<FormattedDate date={pubDate} />
+	</p>
+</article>
+
+<style>
+	.post-card {
+		padding: var(--space-md) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.post-card:last-child {
+		border-bottom: none;
+	}
+	.category {
+		display: inline-block;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-accent);
+		text-decoration: none;
+		margin-bottom: 0.5rem;
+		font-weight: 600;
+	}
+	.category:hover {
+		color: var(--color-accent-hover);
+		text-decoration: underline;
+	}
+	.title {
+		font-size: 1.5rem;
+		margin: 0 0 0.5rem 0;
+		line-height: 1.25;
+	}
+	.title a {
+		text-decoration: none;
+		color: var(--color-text);
+	}
+	.title a:hover {
+		color: var(--color-accent);
+	}
+	.excerpt {
+		color: var(--color-text-muted);
+		margin: 0 0 0.5rem 0;
+		font-size: 1rem;
+		line-height: 1.55;
+	}
+	.meta {
+		font-size: 0.8125rem;
+		color: var(--color-text-faint);
+		margin: 0;
+	}
+	.variant-compact .title {
+		font-size: 1.125rem;
+	}
+</style>

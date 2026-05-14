@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AUTHOR } from '../consts';
+---
+
+<BaseLayout
+	title="About"
+	description="About Sam Rose and Utah Opinions."
+>
+	<div class="reading-container about">
+		<h1>About</h1>
+		<p>
+			<strong>Utah Opinions</strong> is a collection of essays and commentary by {AUTHOR}
+			on Utah politics, education, and the issues that shape life in the state.
+		</p>
+		<p>
+			Replace this placeholder with your own biography, mission, and contact info.
+			Edit <code>src/pages/about.astro</code>.
+		</p>
+		<h2>Get in touch</h2>
+		<p>
+			You can reach me at <a href="mailto:hello@utahopinions.com">hello@utahopinions.com</a>.
+		</p>
+	</div>
+</BaseLayout>
+
+<style>
+	.about {
+		padding: var(--space-xl) var(--space-md);
+	}
+	.about h1 {
+		font-size: 2.5rem;
+		margin-bottom: var(--space-md);
+	}
+	.about h2 {
+		margin-top: var(--space-lg);
+	}
+</style>

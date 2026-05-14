@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FeaturedPost from '../components/FeaturedPost.astro';
+import PostCard from '../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const [featured, ...rest] = posts;
+const recent = rest.slice(0, 10);
+---
+
+<BaseLayout>
+	{featured ? (
+		<section class="container">
+			<FeaturedPost post={featured} />
+		</section>
+	) : (
+		<section class="container empty">
+			<p>No posts yet — check back soon.</p>
+		</section>
+	)}
+
+	{recent.length > 0 && (
+		<section class="container recent">
+			<h2 class="section-title ui-text">More posts</h2>
+			<div class="post-list">
+				{recent.map((post) => <PostCard post={post} />)}
+			</div>
+			<p class="see-all ui-text">
+				<a href="/blog/">See all posts →</a>
+			</p>
+		</section>
+	)}
+</BaseLayout>
+
+<style>
+	.recent {
+		padding: var(--space-lg) var(--space-md);
+	}
+	.section-title {
+		font-family: var(--font-sans-stack);
+		font-size: 0.8125rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--color-text-faint);
+		margin: 0 0 var(--space-md) 0;
+		font-weight: 600;
+	}
+	.post-list {
+		max-width: 760px;
+	}
+	.see-all {
+		margin-top: var(--space-md);
+		font-size: 0.9375rem;
+	}
+	.see-all a {
+		text-decoration: none;
+		color: var(--color-accent);
+		font-weight: 500;
+	}
+	.see-all a:hover {
+		text-decoration: underline;
+	}
+	.empty {
+		padding: var(--space-2xl) var(--space-md);
+		text-align: center;
+		color: var(--color-text-muted);
+	}
+</style>
