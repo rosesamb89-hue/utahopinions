@@ -1,0 +1,93 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    extension: md
+    filename: '{fields.title | slugify}.md'
+    view:
+      fields: [title, category, pubDate, draft, featured]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        description: One-sentence summary shown on the homepage and in social shares.
+        type: text
+        required: true
+      - name: pubDate
+        label: Publish date
+        type: date
+        options:
+          format: yyyy-MM-dd
+        required: true
+      - name: updatedDate
+        label: Updated date
+        type: date
+        options:
+          format: yyyy-MM-dd
+        required: false
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Politics, Education, Issues, Commentary]
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+        required: false
+      - name: heroImage
+        label: Hero image
+        description: Optional image at the top of the post.
+        type: image
+        required: false
+      - name: featured
+        label: Featured
+        description: Reserved (the most recent post is automatically featured).
+        type: boolean
+        default: false
+      - name: draft
+        label: Draft
+        description: Drafts do not appear on the live site.
+        type: boolean
+        default: false
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: site_settings
+    label: Site settings
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: title
+        label: Site title
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: description
+        label: Site description (for search engines)
+        type: text
+      - name: author
+        label: Author name
+        type: string
+      - name: authorBio
+        label: Author bio
+        type: text
+      - name: footerNote
+        label: Footer copyright text
+        type: string

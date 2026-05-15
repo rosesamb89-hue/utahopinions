@@ -1,11 +1,11 @@
 ---
-import { AUTHOR } from '../consts';
+import { AUTHOR, FOOTER_NOTE } from '../consts';
 const today = new Date();
 ---
 
 <footer class="site-footer ui-text">
 	<div class="container footer-inner">
-		<p class="copyright">&copy; {today.getFullYear()} {AUTHOR}. All rights reserved.</p>
+		<p class="copyright">&copy; {today.getFullYear()} {AUTHOR}. {FOOTER_NOTE}</p>
 		<nav aria-label="Footer">
 			<a href="/about/">About</a>
 			<a href="/rss.xml">RSS</a>

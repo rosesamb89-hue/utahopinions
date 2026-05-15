@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { AUTHOR } from '../consts';
 import FormattedDate from './FormattedDate.astro';
@@ -16,7 +15,7 @@ const href = `/blog/${post.id}/`;
 <article class="featured">
 	{heroImage && (
 		<a href={href} class="hero">
-			<Image src={heroImage} alt="" width={1200} height={600} loading="eager" />
+			<img src={heroImage} alt="" loading="eager" />
 		</a>
 	)}
 	<div class="content">
