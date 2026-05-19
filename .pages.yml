@@ -9,7 +9,7 @@ content:
     path: src/content/blog
     format: yaml-frontmatter
     extension: md
-    filename: '{fields.title | slugify}.md'
+    filename: '{fields.title}.md'
     view:
       fields: [title, category, pubDate, draft, featured]
       default:
